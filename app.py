@@ -2,18 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import List, Tuple, TypedDict
 
-import cv2
 import numpy as np
 import streamlit as st
 from PIL import Image
+import cv2
+
+
+class Detection(TypedDict):
+    bbox: Tuple[int, int, int, int]
+    label: str
+    confidence: float
 
 
 st.set_page_config(page_title="Ship & Maritime Monitoring", layout="wide")
 
 
-def mock_methodology_pipeline(image: np.ndarray) -> List[Dict[str, object]]:
+def mock_methodology_pipeline(image: np.ndarray) -> List[Detection]:
     """Simulate image processing -> object detection -> classification pipeline.
 
     TODO: Replace this mock implementation with your trained CNN model pipeline:
@@ -47,14 +53,14 @@ def mock_methodology_pipeline(image: np.ndarray) -> List[Dict[str, object]]:
     ]
 
 
-def draw_detections(image: np.ndarray, detections: List[Dict[str, object]]) -> np.ndarray:
+def draw_detections(image: np.ndarray, detections: List[Detection]) -> np.ndarray:
     """Draw detection bounding boxes and labels on an image."""
 
     annotated = image.copy()
     for detection in detections:
-        x1, y1, x2, y2 = detection["bbox"]  # type: ignore[misc]
-        label = str(detection["label"])
-        confidence = float(detection["confidence"])
+        x1, y1, x2, y2 = detection["bbox"]
+        label = detection["label"]
+        confidence = detection["confidence"]
         text = f"{label} ({confidence:.2f})"
         cv2.rectangle(annotated, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=2)
         cv2.putText(
