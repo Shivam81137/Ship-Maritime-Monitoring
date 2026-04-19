@@ -114,7 +114,7 @@ else:
     st.subheader("Dashboard Metrics")
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     with metric_col1:
-        st.metric("Maritime Traffic Count", f"{len(detections)} ships")
+        st.metric("Maritime Traffic Count (Ships)", len(detections))
     with metric_col2:
         # TODO: Replace with security/anomaly score from your production model + rules engine.
         st.metric("Security Status", "Mock: Normal", "No high-risk detection")
