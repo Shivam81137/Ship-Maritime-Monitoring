@@ -79,9 +79,14 @@ def security_status(detections: List[ShipDetection]) -> str:
 def trade_analysis_text(detections: List[ShipDetection]) -> str:
     """Simple trade analytics placeholder from detected ship mix."""
 
-    cargo_count = sum(1 for d in detections if d["ship_type"] == "Cargo")
-    tanker_count = sum(1 for d in detections if d["ship_type"] == "Tanker")
-    return f"Cargo: {cargo_count} | Tanker: {tanker_count}"
+    ship_counts: Dict[str, int] = {}
+    for detection in detections:
+        ship_type = str(detection["ship_type"])
+        ship_counts[ship_type] = ship_counts.get(ship_type, 0) + 1
+
+    return " | ".join(
+        f"{ship_type}: {count}" for ship_type, count in sorted(ship_counts.items())
+    )
 
 
 def main() -> None:
