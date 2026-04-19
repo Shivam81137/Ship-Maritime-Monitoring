@@ -99,7 +99,7 @@ else:
     st.subheader("Main Display Area")
     left_col, right_col = st.columns(2)
     with left_col:
-        st.image(pil_image, caption="Original uploaded SAR image", use_container_width=True)
+        st.image(pil_image, caption="Original uploaded image", use_container_width=True)
 
     detections = mock_sar_pipeline(image_np)
     annotated_image = draw_detections(image_np, detections)
@@ -114,8 +114,7 @@ else:
     st.subheader("Dashboard Metrics")
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     with metric_col1:
-        # TODO: Replace with real time-series comparison against previous scan window.
-        st.metric("Maritime Traffic Count", f"{len(detections)} ships", "N/A (mock)")
+        st.metric("Maritime Traffic Count", f"{len(detections)} ships")
     with metric_col2:
         # TODO: Replace with security/anomaly score from your production model + rules engine.
         st.metric("Security Status", "Mock: Normal", "No high-risk detection")
