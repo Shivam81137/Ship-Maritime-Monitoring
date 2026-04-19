@@ -11,7 +11,7 @@ from PIL import Image
 
 
 # Bounding-box coordinates in pixel space: (x1, y1, x2, y2)
-BBox = Tuple[int, int, int, int]
+BoundingBox = Tuple[int, int, int, int]
 LABEL_BACKGROUND_HEIGHT = 28
 ELEVATED_SECURITY_THRESHOLD = 5
 DAILY_MOVEMENT_MULTIPLIER = 12
@@ -20,7 +20,7 @@ DAILY_MOVEMENT_MULTIPLIER = 12
 class Detection(TypedDict):
     """Structured detection output: bbox=(x1, y1, x2, y2)."""
 
-    bbox: BBox
+    bbox: BoundingBox
     label: str
     confidence: float
 

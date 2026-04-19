@@ -49,7 +49,8 @@ class AppHelperTests(unittest.TestCase):
         normal_metrics = app.build_metrics([{"bbox": (0, 0, 1, 1), "label": "Cargo", "confidence": 0.9}])
         self.assertEqual(normal_metrics[0], 1)
         self.assertEqual(normal_metrics[1], "Normal")
-        self.assertEqual(normal_metrics[2], "12 estimated vessel movements/day")
+        expected_trade = f"{1 * app.DAILY_MOVEMENT_MULTIPLIER} estimated vessel movements/day"
+        self.assertEqual(normal_metrics[2], expected_trade)
 
         elevated_input = [
             {"bbox": (0, 0, 1, 1), "label": "Cargo", "confidence": 0.9}
