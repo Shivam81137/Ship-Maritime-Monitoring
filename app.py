@@ -71,7 +71,7 @@ def draw_detections(image: np.ndarray, detections: List[Dict[str, object]]) -> n
 
 
 st.title("🚢 Ship and Maritime Monitoring Dashboard")
-st.caption("CNN + SAR workflow: Image processing → Object detection → Classification")
+st.caption("CNN + SAR workflow: Image processing -> Object detection -> Classification")
 
 uploaded_file = st.file_uploader(
     "Upload SAR image data",
@@ -102,10 +102,11 @@ else:
     st.subheader("Dashboard Metrics")
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     with metric_col1:
+        # TODO: Replace with real time-series comparison against previous scan window.
         st.metric("Maritime Traffic Count", f"{len(detections)} vessels", "+1 vs previous scan")
     with metric_col2:
         # TODO: Replace with security/anomaly score from your production model + rules engine.
-        st.metric("Security Status", "Normal", "No high-risk detection")
+        st.metric("Security Status", "Mock: Normal", "No high-risk detection")
     with metric_col3:
         # TODO: Replace with analytics from historical detections/trade intelligence system.
         st.metric("Trade Analysis Stats", "2 route segments", "Stable throughput")
