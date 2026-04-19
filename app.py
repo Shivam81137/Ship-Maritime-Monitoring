@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Tuple
+from typing import List, Tuple, TypedDict
 
 import cv2
 import numpy as np
@@ -10,7 +10,18 @@ import streamlit as st
 from PIL import Image
 
 
-Detection = Dict[str, object]
+BBox = Tuple[int, int, int, int]
+LABEL_BACKGROUND_HEIGHT = 28
+ELEVATED_SECURITY_THRESHOLD = 5
+DAILY_MOVEMENT_MULTIPLIER = 12
+
+
+class Detection(TypedDict):
+    """Structured detection output: bbox=(x1, y1, x2, y2)."""
+
+    bbox: BBox
+    label: str
+    confidence: float
 
 
 def run_mock_pipeline(image_array: np.ndarray) -> List[Detection]:
@@ -57,7 +68,13 @@ def draw_detections(image_array: np.ndarray, detections: List[Detection]) -> np.
         text = f"{label} ({confidence:.2f})"
 
         cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 220, 0), 2)
-        cv2.rectangle(annotated, (x1, max(y1 - 28, 0)), (x2, y1), (0, 220, 0), -1)
+        cv2.rectangle(
+            annotated,
+            (x1, max(y1 - LABEL_BACKGROUND_HEIGHT, 0)),
+            (x2, y1),
+            (0, 220, 0),
+            -1,
+        )
         cv2.putText(
             annotated,
             text,
@@ -74,8 +91,12 @@ def draw_detections(image_array: np.ndarray, detections: List[Detection]) -> np.
 def build_metrics(detections: List[Detection]) -> Tuple[int, str, str]:
     """Generate dashboard metrics for maritime operations."""
     traffic_count = len(detections)
-    security_status = "Normal" if traffic_count < 5 else "Elevated"
-    trade_stat = f"{traffic_count * 12} estimated vessel movements/day"
+    security_status = (
+        "Normal" if traffic_count < ELEVATED_SECURITY_THRESHOLD else "Elevated"
+    )
+    trade_stat = (
+        f"{traffic_count * DAILY_MOVEMENT_MULTIPLIER} estimated vessel movements/day"
+    )
     return traffic_count, security_status, trade_stat
 
 
