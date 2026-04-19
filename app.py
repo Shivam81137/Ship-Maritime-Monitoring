@@ -25,7 +25,7 @@ def format_confidence(value: float) -> str:
 st.set_page_config(page_title="Ship & Maritime Monitoring", layout="wide")
 
 
-def mock_methodology_pipeline(image: np.ndarray) -> List[Detection]:
+def mock_sar_pipeline(image: np.ndarray) -> List[Detection]:
     """Simulate image processing -> object detection -> classification pipeline.
 
     TODO: Replace this mock implementation with your trained CNN model pipeline:
@@ -101,7 +101,7 @@ else:
     with left_col:
         st.image(pil_image, caption="Original uploaded SAR image", use_container_width=True)
 
-    detections = mock_methodology_pipeline(image_np)
+    detections = mock_sar_pipeline(image_np)
     annotated_image = draw_detections(image_np, detections)
     with right_col:
         st.image(
@@ -115,7 +115,7 @@ else:
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     with metric_col1:
         # TODO: Replace with real time-series comparison against previous scan window.
-        st.metric("Maritime Traffic Count", f"{len(detections)} vessels", "N/A (mock)")
+        st.metric("Maritime Traffic Count", f"{len(detections)} ships", "N/A (mock)")
     with metric_col2:
         # TODO: Replace with security/anomaly score from your production model + rules engine.
         st.metric("Security Status", "Mock: Normal", "No high-risk detection")
