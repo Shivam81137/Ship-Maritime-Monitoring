@@ -16,6 +16,12 @@ class Detection(TypedDict):
     confidence: float
 
 
+def format_confidence(value: float) -> str:
+    """Format confidence score for UI output."""
+
+    return f"{value:.2f}"
+
+
 st.set_page_config(page_title="Ship & Maritime Monitoring", layout="wide")
 
 
@@ -61,7 +67,7 @@ def draw_detections(image: np.ndarray, detections: List[Detection]) -> np.ndarra
         x1, y1, x2, y2 = detection["bbox"]
         label = detection["label"]
         confidence = detection["confidence"]
-        text = f"{label} ({confidence:.2f})"
+        text = f"{label} ({format_confidence(confidence)})"
         cv2.rectangle(annotated, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=2)
         cv2.putText(
             annotated,
@@ -122,7 +128,7 @@ else:
         [
             {
                 "Ship Type": d["label"],
-                "Confidence": f"{float(d['confidence']):.2f}",
+                "Confidence": format_confidence(d["confidence"]),
                 "Bounding Box (x1,y1,x2,y2)": d["bbox"],
             }
             for d in detections
