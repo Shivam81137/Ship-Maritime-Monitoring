@@ -10,6 +10,7 @@ import streamlit as st
 from PIL import Image
 
 
+# Bounding-box coordinates in pixel space: (x1, y1, x2, y2)
 BBox = Tuple[int, int, int, int]
 LABEL_BACKGROUND_HEIGHT = 28
 ELEVATED_SECURITY_THRESHOLD = 5

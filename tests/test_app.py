@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import importlib
 import sys
-import types
 import unittest
+from unittest.mock import MagicMock
 
 import numpy as np
 
 
 if "streamlit" not in sys.modules:
-    sys.modules["streamlit"] = types.SimpleNamespace()
+    sys.modules["streamlit"] = MagicMock()
 
 app = importlib.import_module("app")
 
@@ -45,7 +45,7 @@ class AppHelperTests(unittest.TestCase):
         self.assertFalse(np.array_equal(annotated, original_copy))
         self.assertTrue(np.array_equal(image, original_copy))
 
-    def test_build_metrics_thresholds(self) -> None:
+    def test_build_metrics_security_status_thresholds(self) -> None:
         normal_metrics = app.build_metrics([{"bbox": (0, 0, 1, 1), "label": "Cargo", "confidence": 0.9}])
         self.assertEqual(normal_metrics[0], 1)
         self.assertEqual(normal_metrics[1], "Normal")
