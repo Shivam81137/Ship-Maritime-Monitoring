@@ -115,7 +115,7 @@ else:
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     with metric_col1:
         # TODO: Replace with real time-series comparison against previous scan window.
-        st.metric("Maritime Traffic Count", f"{len(detections)} vessels", "+1 vs previous scan")
+        st.metric("Maritime Traffic Count", f"{len(detections)} vessels", "N/A (mock)")
     with metric_col2:
         # TODO: Replace with security/anomaly score from your production model + rules engine.
         st.metric("Security Status", "Mock: Normal", "No high-risk detection")
