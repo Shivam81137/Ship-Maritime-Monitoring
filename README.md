@@ -15,7 +15,15 @@ The Ship and Maritime Monitoring System is designed to provide efficient trackin
 - Web-based interface for user interaction
 
 ## Getting Started
-To get started with the project, clone this repository and follow the installation instructions in the documentation.
+1. Install dependencies:
+   ```bash
+   pip install streamlit pillow opencv-python numpy
+   ```
+2. Run the Streamlit app:
+   ```bash
+   streamlit run app.py
+   ```
+3. Upload a SAR image to view mock ship detections and dashboard metrics.
 
 ## Contributing
 Contributions are welcome! Please read the CONTRIBUTING.md file for details on our code of conduct and the process for submitting pull requests to us.
