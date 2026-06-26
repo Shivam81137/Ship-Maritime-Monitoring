@@ -2,20 +2,13 @@
 
 from __future__ import annotations
 
-import importlib
-import sys
 import unittest
 from io import BytesIO
-from unittest.mock import MagicMock
 
 import numpy as np
 from PIL import Image
 
-# Stub out streamlit so the app module can be imported without a running server.
-if "streamlit" not in sys.modules:
-    sys.modules["streamlit"] = MagicMock()
-
-app = importlib.import_module("app")
+import pipeline as app
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
